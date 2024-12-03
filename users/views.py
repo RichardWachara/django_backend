@@ -4,6 +4,7 @@ from rest_framework.status import HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_2
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 from .utils import send_registration_email
+from django.conf import settings
 
 # generate a tokenized url
 from django.contrib.auth.tokens import default_token_generator
@@ -24,7 +25,7 @@ class RegisterView(APIView):
             created_user = get_user_model().objects.create_user(**serializer.validated_data, is_active=False)
 
             token = default_token_generator.make_token(created_user)
-            verification_url = f"http://192.168.174.193:5173/verify-email?token={token}&email={created_user.email}"
+            verification_url = f"{settings.REACT_BASE_URL}/verify-email?token={token}&email={created_user.email}"
 
             # We want to send an email once our users regiser
             send_registration_email(created_user.email, created_user.first_name,verification_url)
