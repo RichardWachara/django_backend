@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv("SECRET_KEY", 'django-insecure-8bbb6&f5&@abnt!6isa-8crx$c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = ['watch-api-3auq.onrender.com','localhost','127.0.0.1']
+ALLOWED_HOSTS = ['watch-api-3auq.onrender.com','localhost','127.0.0.1','192.168.174.193']
 
 
 # Application definition
@@ -148,6 +148,9 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STORAGES = {
+    'default': {
+        'BACKEND': 'django.core.files.storage.FileSystemStorage',
+    },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
     },
